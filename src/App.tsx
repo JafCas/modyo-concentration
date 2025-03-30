@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Welcome from "./modals/welcome/Welcome";
+import MemoryGame from "./screens/memoryGame/MemoryGame";
 
 function App() {
   const [playerName, setPlayerName] = useState("");
@@ -26,6 +27,7 @@ function App() {
       <Welcome startGameWithName={handleSrtartGame} />
 
       {/* MemoryGame */}
+      <MemoryGame />
 
       {/* Congratulations */}
     </>

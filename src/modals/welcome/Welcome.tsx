@@ -18,7 +18,7 @@ const Welcome = ({ startGameWithName }: WelcomeProps) => {
 
   return (
     // TODO: Hide this component when the game starts
-    <div className="welcome" style={{}}>
+    <div className="welcome" style={{ display: "none" }}>
       <h1>Welcome to the Memory Game!</h1>
       <p>Test your memory and have fun!</p>
       <div>
