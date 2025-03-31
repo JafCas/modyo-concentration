@@ -1,30 +1,44 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Card, cardsSample } from "../../services/getCardEntries";
 
-const MemoryGame = () => {
+type MemoryGameProps = {
+  onGameOver: () => void;
+};
+
+const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  const [matchedCards, setMatchedCards] = useState<number[]>([]);
+
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
 
   const shuffleCards = (cards: Card[]): Card[] => {
-    // Shuffle the cards array
     const shuffledCards = [...cards, ...cards].sort(() => Math.random() - 0.5);
     return shuffledCards;
   };
 
   const handleCardClick = (cardIndex: number) => {
     // Handle card click logic here
-    console.log(`Card clicked: ${cardIndex}`);
+    console.log(`Card clicked: ${cardIndex} and flippedCards: ${flippedCards}`);
 
-    if (flippedCards.includes(cardIndex) || flippedCards.length === 2) {
-      console.log("Card already flipped or two cards are already flipped.");
+    if (flippedCards.includes(cardIndex)) {
       setFlippedCards([]); // TODO: Replace for card cleaning method
       return;
     }
     setFlippedCards((prev) => [...prev, cardIndex]);
   };
 
+  const restartGame = useCallback(() => {
+    setCards(shuffleCards(cardsSample));
+    setFlippedCards([]);
+    setMatchedCards([]);
+    setCorrectCount(0);
+    setIncorrectCount(0);
+    console.log("Game restarted!");
+  }, []);
+
   useEffect(() => {
-    // Shuffle the cards when the component mounts
     const shuffledCards = shuffleCards(cardsSample);
     setCards(shuffledCards);
   }, []);
@@ -36,23 +50,34 @@ const MemoryGame = () => {
         cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid
       ) {
         console.log("Match found!");
+        setMatchedCards((prev) => [...prev, firstCardIndex, secondCardIndex]);
+        setCorrectCount((prev) => prev + 1);
+        setFlippedCards([]);
       } else {
         console.log("No match, flipping back...");
-        // Logic to flip cards back can go here
+        setIncorrectCount((prev) => prev + 1);
+        setFlippedCards([]);
       }
     }
-
-    // // Check if all cards are flipped
-    // if (cards.length > 0 && flippedCards.length === cards.length) {
-    //   console.log("All cards flipped! Game over.");
-    //   // Logic for game over can go here
-    // }
   }, [flippedCards, cards]);
+
+  useEffect(() => {
+    if (matchedCards.length === cards.length) {
+      console.log("Game Over! All cards matched.");
+      onGameOver();
+      restartGame();
+    }
+  }, [cards, matchedCards, restartGame, onGameOver]);
 
   return (
     <div>
       <div className="game-container">
         <div className="card-container">
+          <div>
+            <h2>Memory Game</h2>
+            <p>Correct Matches: {correctCount}</p>
+            <p>Incorrect Matches: {incorrectCount}</p>
+          </div>
           {cards.map((card, index) => (
             <div
               key={index}

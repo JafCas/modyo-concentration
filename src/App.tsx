@@ -8,8 +8,15 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
+  const handleGameOver = () => {
+    setGameOver(true);
+    setGameStarted(false);
+    console.log("Game Over! All cards matched.");
+  };
+
   const handleSrtartGame = (name: string) => {
     setPlayerName(name);
+    setGameOver(false);
     setGameStarted(true);
     console.log(`Game started for player: ${name}`);
   };
@@ -17,7 +24,6 @@ function App() {
   useEffect(() => {
     if (gameStarted) {
       console.log("Game is in progress...");
-      // Logic to start the game goes here
     }
   }, [gameStarted]);
 
@@ -27,7 +33,7 @@ function App() {
       <Welcome startGameWithName={handleSrtartGame} />
 
       {/* MemoryGame */}
-      <MemoryGame />
+      <MemoryGame onGameOver={handleGameOver} />
 
       {/* Congratulations */}
     </>
