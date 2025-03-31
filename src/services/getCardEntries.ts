@@ -1,4 +1,4 @@
-export type CardEntry = {
+export type Card = {
   meta: CardMeta;
   fields: CardFields;
 };
@@ -21,7 +21,7 @@ export type CardFields = {
   };
 };
 
-export const entriesSample = [
+export const cardsSample: Card[] = [
   {
     meta: {
       name: "bear",
