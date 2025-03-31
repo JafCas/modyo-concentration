@@ -73,7 +73,7 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
     <div>
       <div className="game-container">
         <div className="card-container">
-          <div>
+          <div style={{ display: "flex", flexDirection: "row", gap: "40px", alignItems: "center" }}>
             <h2>Memory Game</h2>
             <p>Correct Matches: {correctCount}</p>
             <p>Incorrect Matches: {incorrectCount}</p>
