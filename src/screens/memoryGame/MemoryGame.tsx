@@ -14,30 +14,13 @@ const MemoryGame = () => {
   const handleCardClick = (cardIndex: number) => {
     // Handle card click logic here
     console.log(`Card clicked: ${cardIndex}`);
-    // You can implement the logic to check for matches or flip cards
-    // For example, you can use a state variable to track the flipped cards
-    // and check if they match when two cards are flipped.
-    // If they match, you can keep them flipped; if not, you can flip them back.
-    // You can also implement a scoring system and a timer for the game.
-    // This is just a placeholder for the card click logic.
-    if (!flippedCards.includes(cardIndex)) {
-      setFlippedCards((prev) => [...prev, cardIndex]);
+
+    if (flippedCards.includes(cardIndex) || flippedCards.length === 2) {
+      console.log("Card already flipped or two cards are already flipped.");
+      setFlippedCards([]); // TODO: Replace for card cleaning method
+      return;
     }
-    if (flippedCards.length === 2) {
-      // Check if the two flipped cards match
-      const [firstCardIndex, secondCardIndex] = flippedCards;
-      if (
-        cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid
-      ) {
-        console.log("Match found!");
-        // Logic for a successful match can go here
-      } else {
-        console.log("No match. Flipping back.");
-        // Logic for flipping back the cards can go here
-      }
-      // Reset the flipped cards after checking
-      setFlippedCards([]);
-    }
+    setFlippedCards((prev) => [...prev, cardIndex]);
   };
 
   useEffect(() => {
@@ -47,11 +30,23 @@ const MemoryGame = () => {
   }, []);
 
   useEffect(() => {
-    // Check if all cards are flipped
-    if (cards.length > 0 && flippedCards.length === cards.length) {
-      console.log("All cards flipped! Game over.");
-      // Logic for game over can go here
+    const [firstCardIndex, secondCardIndex] = flippedCards;
+    if (firstCardIndex !== undefined && secondCardIndex !== undefined) {
+      if (
+        cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid
+      ) {
+        console.log("Match found!");
+      } else {
+        console.log("No match, flipping back...");
+        // Logic to flip cards back can go here
+      }
     }
+
+    // // Check if all cards are flipped
+    // if (cards.length > 0 && flippedCards.length === cards.length) {
+    //   console.log("All cards flipped! Game over.");
+    //   // Logic for game over can go here
+    // }
   }, [flippedCards, cards]);
 
   return (
