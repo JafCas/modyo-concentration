@@ -23,14 +23,14 @@ function App() {
     setPlayerName(name);
     setGameOver(false);
     setGameStarted(true);
-    console.log(`Game started for player: ${name}`);
   };
 
-  useEffect(() => {
-    if (gameStarted) {
-      console.log("Game is in progress...");
-    }
-  }, [gameStarted]);
+  const handlePlayAgain = () => {
+    setGameOver(false);
+    setGameStarted(true);
+    setCorrectCount(0);
+    setIncorrectCount(0);
+  };
 
   return (
     <>
@@ -38,10 +38,10 @@ function App() {
       <Welcome startGameWithName={handleSrtartGame} />
 
       {/* MemoryGame */}
-      <MemoryGame onGameOver={handleGameOver} />
+      <MemoryGame onGameOver={handleGameOver} gameStarted={gameStarted} />
 
       {/* Congratulations */}
-      <Congratulations />
+      <Congratulations onPlayAgain={handlePlayAgain} isGameOver={gameOver} />
     </>
   );
 }

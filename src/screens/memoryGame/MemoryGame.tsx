@@ -3,9 +3,10 @@ import { Card, cardsSample } from "../../services/getCardEntries";
 
 type MemoryGameProps = {
   onGameOver: (correct: number, incorrect: number) => void;
+  gameStarted: boolean;
 };
 
-const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
+const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
@@ -36,6 +37,12 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
     setIncorrectCount(0);
   }, [shuffleCards]);
 
+  useEffect(() => {
+    if (gameStarted) {
+      restartGame();
+    }
+  }, [gameStarted, restartGame]);
+
   useEffect(() => setCards(shuffleCards()), [shuffleCards]);
 
   useEffect(() => {
@@ -56,7 +63,6 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
   useEffect(() => {
     if (matchedCards.length === cards.length && cards.length > 0) {
       onGameOver(correctCount, incorrectCount);
-      restartGame();
     }
   }, [
     matchedCards,
