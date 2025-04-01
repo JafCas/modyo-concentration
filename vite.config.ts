@@ -19,5 +19,8 @@ export default defineConfig(({ mode }) => {
         "@/": root,
       },
     },
+    server: {
+      host: true,
+    },
   };
 });
