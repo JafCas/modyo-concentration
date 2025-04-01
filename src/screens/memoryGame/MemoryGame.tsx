@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Card, cardsSample } from "../../services/getCardEntries";
 
 type MemoryGameProps = {
-  onGameOver: () => void;
+  onGameOver: (correct: number, incorrect: number) => void;
 };
 
 const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
@@ -60,10 +60,17 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
 
   useEffect(() => {
     if (matchedCards.length === cards.length) {
-      onGameOver();
+      onGameOver(correctCount, incorrectCount);
       restartGame();
     }
-  }, [cards, matchedCards, restartGame, onGameOver]);
+  }, [
+    matchedCards.length,
+    cards.length,
+    onGameOver,
+    correctCount,
+    incorrectCount,
+    restartGame,
+  ]);
 
   return (
     <div>

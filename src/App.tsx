@@ -7,11 +7,15 @@ function App() {
   const [playerName, setPlayerName] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
 
-  const handleGameOver = () => {
+  const handleGameOver = (correct: number, incorrect: number) => {
     setGameOver(true);
     setGameStarted(false);
-    console.log("Game Over! All cards matched.");
+    setCorrectCount(correct);
+    setIncorrectCount(incorrect);
+    console.log(`Game Over! Correct: ${correct}, Incorrect: ${incorrect}`);
   };
 
   const handleSrtartGame = (name: string) => {
