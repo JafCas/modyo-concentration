@@ -70,21 +70,29 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
   return (
     <div>
       <div className="game-container">
-        <div
+        <header
           style={{
             display: "flex",
             flexDirection: "row",
             gap: "40px",
             alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "20px",
           }}
         >
           <h2>Memory Game</h2>
-          <p>Correct Matches: {correctCount}</p>
-          <p>Incorrect Matches: {incorrectCount}</p>
-        </div>
+          <div style={{ display: "flex", gap: "20px" }}>
+            <p>Correct Matches: {correctCount}</p>
+            <p>Incorrect Matches: {incorrectCount}</p>
+          </div>
+        </header>
         <div
           className="card-container"
-          style={{ display: "flex", gap: "20px" }}
+          style={{
+            display: "flex",
+            gap: "20px",
+            justifyContent: "center",
+          }}
         >
           {cards.map((card, index) => (
             <div
@@ -96,13 +104,24 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
                   : flippedCards.includes(index)
                   ? "red"
                   : "black",
+                borderRadius: "10px",
+                overflow: "hidden",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "transform 0.2s",
+                transform: flippedCards.includes(index)
+                  ? "scale(1.1)"
+                  : "scale(1)",
               }}
               key={index}
               className="card"
               onClick={() => handleCardClick(index)}
             >
               <img
-                style={{ width: "100px", height: "100px" }}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "cover",
+                }}
                 src={card.fields.image.url}
                 alt={card.fields.image.title}
                 className="card-image"
