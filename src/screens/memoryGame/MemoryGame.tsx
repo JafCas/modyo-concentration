@@ -9,14 +9,13 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
-
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
 
-  const shuffleCards = (cards: Card[]): Card[] => {
-    const shuffledCards = [...cards, ...cards].sort(() => Math.random() - 0.5);
-    return shuffledCards;
-  };
+  const shuffleCards = useCallback(
+    () => [...cardsSample, ...cardsSample].sort(() => Math.random() - 0.5),
+    []
+  );
 
   const handleCardClick = (cardIndex: number) => {
     // Handle card click logic here
@@ -30,42 +29,38 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
   };
 
   const restartGame = useCallback(() => {
-    setCards(shuffleCards(cardsSample));
+    setCards(shuffleCards());
     setFlippedCards([]);
     setMatchedCards([]);
     setCorrectCount(0);
     setIncorrectCount(0);
-  }, []);
+  }, [shuffleCards]);
+
+  useEffect(() => setCards(shuffleCards()), [shuffleCards]);
 
   useEffect(() => {
-    const shuffledCards = shuffleCards(cardsSample);
-    setCards(shuffledCards);
-  }, []);
+    if (flippedCards.length === 2) {
+      const [firstCardIndex, secondCardIndex] = flippedCards;
+      const isMatch =
+        cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid;
 
-  useEffect(() => {
-    const [firstCardIndex, secondCardIndex] = flippedCards;
-    if (firstCardIndex !== undefined && secondCardIndex !== undefined) {
-      if (
-        cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid
-      ) {
-        setMatchedCards((prev) => [...prev, firstCardIndex, secondCardIndex]);
-        setCorrectCount((prev) => prev + 1);
-        setFlippedCards([]);
-      } else {
-        setIncorrectCount((prev) => prev + 1);
-        setFlippedCards([]);
-      }
+      setMatchedCards((prev) =>
+        isMatch ? [...prev, firstCardIndex, secondCardIndex] : prev
+      );
+      setCorrectCount((prev) => (isMatch ? prev + 1 : prev));
+      setIncorrectCount((prev) => (!isMatch ? prev + 1 : prev));
+      setFlippedCards([]);
     }
   }, [flippedCards, cards]);
 
   useEffect(() => {
-    if (matchedCards.length === cards.length) {
+    if (matchedCards.length === cards.length && cards.length > 0) {
       onGameOver(correctCount, incorrectCount);
       restartGame();
     }
   }, [
-    matchedCards.length,
-    cards.length,
+    matchedCards,
+    cards,
     onGameOver,
     correctCount,
     incorrectCount,
