@@ -21,6 +21,7 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
   const handleCardClick = (cardIndex: number) => {
     // Handle card click logic here
     console.log(`Card clicked: ${cardIndex} and flippedCards: ${flippedCards}`);
+    if (matchedCards.includes(cardIndex)) return;
 
     if (flippedCards.includes(cardIndex)) {
       setFlippedCards([]); // TODO: Replace for card cleaning method
@@ -67,26 +68,35 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
       onGameOver();
       restartGame();
     }
+    console.log("Matched cards:", matchedCards);
   }, [cards, matchedCards, restartGame, onGameOver]);
 
   return (
     <div>
       <div className="game-container">
-        <div className="card-container">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "40px",
-              alignItems: "center",
-            }}
-          >
-            <h2>Memory Game</h2>
-            <p>Correct Matches: {correctCount}</p>
-            <p>Incorrect Matches: {incorrectCount}</p>
-          </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "40px",
+            alignItems: "center",
+          }}
+        >
+          <h2>Memory Game</h2>
+          <p>Correct Matches: {correctCount}</p>
+          <p>Incorrect Matches: {incorrectCount}</p>
+        </div>
+        <div
+          className="card-container"
+          style={{ display: "flex", gap: "20px" }}
+        >
           {cards.map((card, index) => (
             <div
+              style={{
+                cursor: "pointer",
+                border: "2px solid",
+                borderColor: matchedCards.includes(index) ? "green" : "black",
+              }}
               key={index}
               className="card"
               onClick={() => handleCardClick(index)}
