@@ -17,10 +17,7 @@ const Congratulations = ({
 }: CongratulationsProps) => {
   const handlePlayAgain = () => {
     onPlayAgain();
-    // Logic to reset the game state and start a new game
-    // window.location.reload();
   };
-//   console.log(`game over: ${isGameOver}`);
   return (
     <div
       className="congratulations-modal"

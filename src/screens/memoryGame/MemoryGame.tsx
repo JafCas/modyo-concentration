@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Card, cardsSample } from "../../services/getCardEntries";
+import { Card, getCardEntries } from "../../services/getCardEntries";
 
 type MemoryGameProps = {
   onGameOver: (correct: number, incorrect: number) => void;
@@ -13,10 +13,19 @@ const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
 
-  const shuffleCards = useCallback(
-    () => [...cardsSample, ...cardsSample].sort(() => Math.random() - 0.5),
-    []
-  );
+  const initializeAndShuffleCards = useCallback(async () => {
+    try {
+      const data = await getCardEntries(4);
+      const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
+      setCards(shuffledCards);
+    } catch (error) {
+      console.error("Error fetching and shuffling card entries:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    initializeAndShuffleCards();
+  }, [initializeAndShuffleCards]);
 
   const handleCardClick = (cardIndex: number) => {
     // Handle card click logic here
@@ -30,20 +39,18 @@ const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
   };
 
   const restartGame = useCallback(() => {
-    setCards(shuffleCards());
+    initializeAndShuffleCards();
     setFlippedCards([]);
     setMatchedCards([]);
     setCorrectCount(0);
     setIncorrectCount(0);
-  }, [shuffleCards]);
+  }, [initializeAndShuffleCards]);
 
   useEffect(() => {
     if (gameStarted) {
       restartGame();
     }
   }, [gameStarted, restartGame]);
-
-  useEffect(() => setCards(shuffleCards()), [shuffleCards]);
 
   useEffect(() => {
     if (flippedCards.length === 2) {
