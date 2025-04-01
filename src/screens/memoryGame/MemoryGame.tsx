@@ -20,7 +20,6 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
 
   const handleCardClick = (cardIndex: number) => {
     // Handle card click logic here
-    console.log(`Card clicked: ${cardIndex} and flippedCards: ${flippedCards}`);
     if (matchedCards.includes(cardIndex)) return;
 
     if (flippedCards.includes(cardIndex)) {
@@ -36,7 +35,6 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
     setMatchedCards([]);
     setCorrectCount(0);
     setIncorrectCount(0);
-    console.log("Game restarted!");
   }, []);
 
   useEffect(() => {
@@ -50,12 +48,10 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
       if (
         cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid
       ) {
-        console.log("Match found!");
         setMatchedCards((prev) => [...prev, firstCardIndex, secondCardIndex]);
         setCorrectCount((prev) => prev + 1);
         setFlippedCards([]);
       } else {
-        console.log("No match, flipping back...");
         setIncorrectCount((prev) => prev + 1);
         setFlippedCards([]);
       }
@@ -64,11 +60,9 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
 
   useEffect(() => {
     if (matchedCards.length === cards.length) {
-      console.log("Game Over! All cards matched.");
       onGameOver();
       restartGame();
     }
-    console.log("Matched cards:", matchedCards);
   }, [cards, matchedCards, restartGame, onGameOver]);
 
   return (
@@ -95,7 +89,11 @@ const MemoryGame = ({ onGameOver }: MemoryGameProps) => {
               style={{
                 cursor: "pointer",
                 border: "2px solid",
-                borderColor: matchedCards.includes(index) ? "green" : "black",
+                borderColor: matchedCards.includes(index)
+                  ? "green"
+                  : flippedCards.includes(index)
+                  ? "red"
+                  : "black",
               }}
               key={index}
               className="card"
