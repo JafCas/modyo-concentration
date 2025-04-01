@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Welcome from "./modals/welcome/Welcome";
 import MemoryGame from "./screens/memoryGame/MemoryGame";
+import Congratulations from "./modals/congratulations/Congratulations";
 
 function App() {
   const [playerName, setPlayerName] = useState("");
@@ -40,6 +41,7 @@ function App() {
       <MemoryGame onGameOver={handleGameOver} />
 
       {/* Congratulations */}
+      <Congratulations />
     </>
   );
 }
