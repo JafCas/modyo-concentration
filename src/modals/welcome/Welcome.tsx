@@ -1,10 +1,14 @@
 import React from "react";
 
 type WelcomeProps = {
+  isGameStarted: boolean;
   startGameWithName: (name: string) => void;
 };
 
-const Welcome = ({ startGameWithName }: WelcomeProps) => {
+const Welcome = ({
+  isGameStarted: gameStarted,
+  startGameWithName,
+}: WelcomeProps) => {
   const [playerName, setPlayerName] = React.useState("");
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.target.value);
@@ -17,8 +21,10 @@ const Welcome = ({ startGameWithName }: WelcomeProps) => {
   };
 
   return (
-    // TODO: Hide this component when the game starts
-    <div className="welcome" style={{ display: "none" }}>
+    <div
+      className="welcome"
+      style={{ display: gameStarted ? "none" : "block" }}
+    >
       <h1>Welcome to the Memory Game!</h1>
       <p>Test your memory and have fun!</p>
       <div>

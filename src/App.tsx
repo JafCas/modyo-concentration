@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+
 import "./App.css";
+
 import Welcome from "./modals/welcome/Welcome";
-import MemoryGame from "./screens/memoryGame/MemoryGame";
 import Congratulations from "./modals/congratulations/Congratulations";
+import MemoryGame from "./screens/memoryGame/MemoryGame";
 
 function App() {
   const [playerName, setPlayerName] = useState("");
@@ -11,13 +13,11 @@ function App() {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
 
-  const handleGameOver = (correct: number, incorrect: number) => {
+  const handleGameOver = useCallback((correct: number, incorrect: number) => {
     setGameOver(true);
-    setGameStarted(false);
     setCorrectCount(correct);
     setIncorrectCount(incorrect);
-    console.log(`Game Over! Correct: ${correct}, Incorrect: ${incorrect}`);
-  };
+  }, []);
 
   const handleSrtartGame = (name: string) => {
     setPlayerName(name);
@@ -27,19 +27,18 @@ function App() {
 
   const handlePlayAgain = () => {
     setGameOver(false);
-    setGameStarted(true);
+    setGameStarted(false);
     setCorrectCount(0);
     setIncorrectCount(0);
   };
 
-  useEffect(() => {
-    console.log(`game over: ${gameOver}`);
-  }, [gameOver]);
-
   return (
     <>
       {/* Welcome */}
-      <Welcome startGameWithName={handleSrtartGame} />
+      <Welcome
+        startGameWithName={handleSrtartGame}
+        isGameStarted={gameStarted}
+      />
 
       {/* MemoryGame */}
       <MemoryGame onGameOver={handleGameOver} gameStarted={gameStarted} />
