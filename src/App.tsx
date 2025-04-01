@@ -32,6 +32,10 @@ function App() {
     setIncorrectCount(0);
   };
 
+  useEffect(() => {
+    console.log(`game over: ${gameOver}`);
+  }, [gameOver]);
+
   return (
     <>
       {/* Welcome */}
@@ -41,7 +45,13 @@ function App() {
       <MemoryGame onGameOver={handleGameOver} gameStarted={gameStarted} />
 
       {/* Congratulations */}
-      <Congratulations onPlayAgain={handlePlayAgain} isGameOver={gameOver} />
+      <Congratulations
+        correctCount={correctCount}
+        incorrectCount={incorrectCount}
+        isGameOver={gameOver}
+        playerName={playerName}
+        onPlayAgain={handlePlayAgain}
+      />
     </>
   );
 }

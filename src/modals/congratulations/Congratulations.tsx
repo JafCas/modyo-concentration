@@ -1,22 +1,37 @@
 import React from "react";
 
 type CongratulationsProps = {
-  onPlayAgain: () => void;
+  correctCount: number;
+  incorrectCount: number;
   isGameOver: boolean;
+  playerName: string;
+  onPlayAgain: () => void;
 };
 
-const Congratulations = ({ onPlayAgain, isGameOver }: CongratulationsProps) => {
+const Congratulations = ({
+  correctCount,
+  incorrectCount,
+  playerName,
+  onPlayAgain,
+  isGameOver,
+}: CongratulationsProps) => {
   const handlePlayAgain = () => {
     onPlayAgain();
     // Logic to reset the game state and start a new game
     // window.location.reload();
   };
+//   console.log(`game over: ${isGameOver}`);
   return (
     <div
       className="congratulations-modal"
       style={{ display: isGameOver ? "block" : "none" }}
     >
       <h2>Congratulations!</h2>
+      <p>
+        {playerName}, you have completed the game with{" "}
+        <strong>{correctCount}</strong> correct matches and{" "}
+        <strong>{incorrectCount}</strong> incorrect attempts.
+      </p>
       <p>You have completed the game!</p>
       <button onClick={handlePlayAgain}>Play Again</button>
     </div>
