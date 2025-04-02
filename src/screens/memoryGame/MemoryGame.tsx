@@ -17,7 +17,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   const initializeAndShuffleCards = useCallback(async () => {
     try {
-      const data = await getCardEntries(3);
+      const data = await getCardEntries(20);
       const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
       setCards(shuffledCards);
     } catch (error) {
@@ -35,6 +35,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
         matchedCards.includes(cardIndex) ||
         flippedCards.includes(cardIndex)
       ) {
+        setFlippedCards((prev) => prev.filter((index) => index !== cardIndex));
         return;
       }
       setFlippedCards((prev) => [...prev, cardIndex]);
@@ -82,7 +83,8 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   return (
     <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
-      
+      <Header correctCount={correctCount} incorrectCount={incorrectCount} />
+
       <div className="card-container flex gap-5 justify-center flex-wrap">
         {cards.map((card, index) => (
           <MemoryCard
@@ -100,3 +102,36 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 };
 
 export default MemoryGame;
+
+const Header = ({
+  correctCount,
+  incorrectCount,
+}: {
+  correctCount: number;
+  incorrectCount: number;
+}) => {
+  const headerClassName = `counter flex flex-row gap-28 fixed z-500 `;
+  return (
+    <header
+      className={`${headerClassName}`}
+      style={{ bottom: "1.4em", left: "50%", transform: "translateX(-50%)" }}
+    >
+      <div
+        className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
+        style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
+      >
+        <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
+          {correctCount}
+        </span>
+      </div>
+      <div
+        className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
+        style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
+      >
+        <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
+          {incorrectCount}
+        </span>
+      </div>
+    </header>
+  );
+};

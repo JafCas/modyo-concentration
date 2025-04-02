@@ -22,22 +22,23 @@ const Welcome = ({
     : "opacity-0 pointer-events-none overflow-auto transition-all duration-200 ease-in-out";
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayerName(event.target.value);
+    const input = event.target.value.trim();
+    const isValid = /^[a-zA-Z\s]*$/.test(input); // Allow only letters and spaces
+    if (isValid) {
+      setPlayerName(input);
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (playerName) {
-      startGameWithName(playerName);
+      const sanitizedPlayerName = playerName.replace(/\s+/g, " ").trim(); // Remove extra spaces
+      startGameWithName(sanitizedPlayerName);
     }
   };
 
   useEffect(() => {
-    if (!isGameStarted) {
-      document.body.style.pointerEvents = "none";
-    } else {
-      document.body.style.pointerEvents = "auto";
-    }
+    document.body.style.pointerEvents = isGameStarted ? "auto" : "none";
   }, [isGameStarted]);
 
   const labelText = isPlayingAgain ? "Are you still?" : "Enter your name: ";
