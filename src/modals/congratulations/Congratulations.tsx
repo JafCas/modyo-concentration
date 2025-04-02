@@ -16,9 +16,11 @@ const Congratulations = ({
   const tailwindClasses = isGameOver
     ? "opacity-100 pointer-events-auto overflow-hidden transition-all duration-200 ease-in-out"
     : "opacity-0 pointer-events-none overflow-auto transition-all duration-200 ease-in-out";
+
   const handlePlayAgain = () => {
     onPlayAgain();
   };
+
   return (
     <div className={`floating-card congratulations ${tailwindClasses}`}>
       <h2>Congratulations!</h2>
