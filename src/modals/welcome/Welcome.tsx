@@ -25,7 +25,8 @@ const Welcome = ({
     setPlayerName(event.target.value);
   };
 
-  const handleStartGame = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (playerName) {
       startGameWithName(playerName);
     }
@@ -55,19 +56,32 @@ const Welcome = ({
         <h1>Welcome to the Memory Game!</h1>
         <p>Test your memory and have fun!</p>
       </div>
-      <div className="welcome-input">
-        <label htmlFor="playerName">{labelText}</label>
+      <form
+        className="welcome-input"
+        onSubmit={handleSubmit}
+        style={{ gap: "1rem" }}
+      >
+        <label
+          style={{ fontSize: "1.4rem", fontWeight: "bold" }}
+          htmlFor="playerName"
+        >
+          {labelText}
+        </label>
         <input
+          style={{
+            fontSize: "1.4rem",
+            fontWeight: "bold",
+            borderRadius: "0.5rem",
+          }}
           onChange={handleNameChange}
           type="text"
           id="playerName"
           name="playerName"
           placeholder="Your name"
+          required
         />
-      </div>
-      <button disabled={!playerName} onClick={handleStartGame}>
-        Start Game
-      </button>
+        <button type="submit">Start Game</button>
+      </form>
     </div>
   );
 };
