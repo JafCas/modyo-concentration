@@ -25,7 +25,8 @@
   display: flex;
 
   cursor: pointer;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  text-shadow: 0 0 5px #000000;
 
   box-shadow: -1px -1px 4px #b6918c, 2px 2px 3px #e0aba6;
 }
@@ -33,6 +34,11 @@
 .floating-card h1 {
   font-size: 4em;
   margin: 0;
+}
+
+.floating-card h2 {
+  font-size: 2.2em;
+  font-weight: 800;
 }
 
 .floating-card p {

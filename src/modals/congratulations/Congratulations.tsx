@@ -26,8 +26,12 @@ const Congratulations = ({
       <h2>Congratulations!</h2>
       <p>
         {playerName}, you have completed the game with{" "}
-        <strong>{correctCount}</strong> correct matches and{" "}
-        <strong>{incorrectCount}</strong> incorrect attempts.
+        <strong className="text-green-500">{correctCount} correct </strong>
+        matches and{" "}
+        <strong className="text-red-500">
+          {incorrectCount} incorrect{" "}
+        </strong>{" "}
+        attempts.
       </p>
       <p>You have completed the game!</p>
       <button onClick={handlePlayAgain}>Play Again</button>
