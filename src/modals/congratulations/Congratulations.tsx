@@ -1,3 +1,5 @@
+import texts from "../../assets/texts";
+
 type CongratulationsProps = {
   correctCount: number;
   incorrectCount: number;
@@ -25,7 +27,7 @@ const Congratulations = ({
     <div className={`floating-card congratulations ${tailwindClasses}`}>
       <h2>Congratulations!</h2>
       <p>
-        {playerName}, you have completed the game with{" "}
+        `{playerName}, {texts.CORRECT_COUNT}
         <strong className="text-green-500">{correctCount} correct </strong>
         matches and{" "}
         <strong className="text-red-500">
@@ -33,8 +35,8 @@ const Congratulations = ({
         </strong>{" "}
         attempts.
       </p>
-      <p>You have completed the game!</p>
-      <button onClick={handlePlayAgain}>Play Again</button>
+      <p>{texts.GAME_COMPLETED}</p>
+      <button onClick={handlePlayAgain}>{texts.PLAY_AGAIN_BUTTON}</button>
     </div>
   );
 };

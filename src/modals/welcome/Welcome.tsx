@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Welcome.css";
+import texts from "../../assets/texts";
 
 type WelcomeProps = {
   isGameStarted: boolean;
@@ -54,34 +55,36 @@ const Welcome = ({
       }}
     >
       <div className="welcome-header">
-        <h1>Welcome to the Memory Game!</h1>
-        <p>Test your memory and have fun!</p>
+        <h1>{texts.WELCOME_MESSAGE}</h1>
+        <p>{texts.INSTRUCTION_MESSAGE}</p>
       </div>
       <form
         className="welcome-input"
         onSubmit={handleSubmit}
         style={{ gap: "1rem" }}
       >
-        <label
-          style={{ fontSize: "1.4rem", fontWeight: "bold" }}
-          htmlFor="playerName"
-        >
-          {labelText}
-        </label>
-        <input
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: "bold",
-            borderRadius: "0.5rem",
-          }}
-          onChange={handleNameChange}
-          type="text"
-          id="playerName"
-          name="playerName"
-          placeholder="Your name"
-          required
-        />
-        <button type="submit">Start Game</button>
+        <div className="align-bottom">
+          <label
+            style={{ fontSize: "1.4rem", fontWeight: "bold" }}
+            htmlFor="playerName"
+          >
+            {labelText}
+          </label>
+          <input
+            style={{
+              fontSize: "1.4rem",
+              fontWeight: "bold",
+              borderRadius: "0.5rem",
+            }}
+            onChange={handleNameChange}
+            type="text"
+            id="playerName"
+            name="playerName"
+            placeholder={texts.NAME_PLACEHOLDER}
+            required
+          />
+        </div>
+        <button type="submit">{texts.START_GAME}</button>
       </form>
     </div>
   );

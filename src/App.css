@@ -14,6 +14,7 @@
 }
 
 .floating-card {
+  display: flex;
   position: fixed;
   background-color: #9f777356;
   top: 50%;
@@ -22,13 +23,11 @@
   border-radius: 20px;
   z-index: 1000;
 
-  display: flex;
-
-  cursor: pointer;
   backdrop-filter: blur(12px);
   text-shadow: 0 0 5px #000000;
 
   box-shadow: -1px -1px 4px #b6918c, 2px 2px 3px #e0aba6;
+  align-items: center;
 }
 
 .floating-card h1 {
@@ -82,5 +81,36 @@
     height: 90%;
     padding: 10px;
     justify-content: space-between;
+  }
+}
+
+@media (min-width: 600px) {
+  .floating-card {
+    flex-direction: column;
+    width: 80%;
+    height: 80%;
+    padding: 20px;
+    justify-content: space-between;
+  }
+
+  .floating-card h1 {
+    font-size: 5em;
+  }
+  .floating-card h2 {
+    font-size: 3em;
+  }
+  .floating-card p {
+    font-size: 2em;
+  }
+  .floating-card button {
+    font-size: 2em;
+  }
+  .floating-card button:hover {
+    background-color: #646cff66;
+  }
+  .floating-card button:active {
+    background-color: #646cff46;
+    box-shadow: inset -2px -2px 4px rgba(71, 77, 198, 0.166),
+      inset 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
