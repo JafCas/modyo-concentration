@@ -82,35 +82,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   return (
     <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
-      <header
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "40px",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <div className="counter flex gap-24">
-          <div
-            className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
-            style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
-          >
-            <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
-              {correctCount}
-            </span>
-          </div>
-          <div
-            className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
-            style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
-          >
-            <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
-              {incorrectCount}
-            </span>
-          </div>
-        </div>
-      </header>
+      
       <div className="card-container flex gap-5 justify-center flex-wrap">
         {cards.map((card, index) => (
           <MemoryCard
