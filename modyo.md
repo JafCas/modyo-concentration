@@ -18,4 +18,4 @@ Vite - React - TypeScript
 
 3. Tailwind
 
-4. ...
+4. Complete README.md
