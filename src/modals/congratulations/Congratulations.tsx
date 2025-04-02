@@ -1,5 +1,3 @@
-import React from "react";
-
 type CongratulationsProps = {
   correctCount: number;
   incorrectCount: number;
@@ -21,7 +19,12 @@ const Congratulations = ({
   return (
     <div
       className="floating-card"
-      style={{ display: isGameOver ? "block" : "none" }}
+      style={{
+        opacity: isGameOver ? 1 : 0,
+        pointerEvents: isGameOver ? "all" : "none",
+        overflow: isGameOver ? "hidden" : "auto",
+        transition: "all 0.2s ease-in-out",
+      }}
     >
       <h2>Congratulations!</h2>
       <p>

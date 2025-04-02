@@ -58,6 +58,27 @@
   /* TODO: Disable pointer events when it is not active (can i do this with tailwind?)  */
 }
 
+.floating-card h1 {
+  font-size: 4em;
+  margin: 0;
+}
+
+.floating-card p {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.floating-card button {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 1em;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 @media (max-width: 600px) {
   #root {
     width: 100%;
@@ -69,5 +90,6 @@
     width: 90%;
     height: 90%;
     padding: 10px;
+    justify-content: space-between;
   }
 }

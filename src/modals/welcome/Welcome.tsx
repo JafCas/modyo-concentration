@@ -20,7 +20,7 @@ const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
 
   return (
     <div
-      className="floating-card"
+      className="floating-card welcome"
       style={{
         opacity: !isGameStarted ? 1 : 0,
         pointerEvents: !isGameStarted ? "all" : "none",
@@ -28,9 +28,11 @@ const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
         transition: "all 0.2s ease-in-out",
       }}
     >
-      <h1>Welcome to the Memory Game!</h1>
-      <p>Test your memory and have fun!</p>
-      <div>
+      <div className="welcome-header">
+        <h1>Welcome to the Memory Game!</h1>
+        <p>Test your memory and have fun!</p>
+      </div>
+      <div className="welcome-input">
         <label htmlFor="playerName">Enter your name: </label>
         <input
           onChange={handleNameChange}

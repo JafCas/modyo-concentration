@@ -1,6 +1,13 @@
 @media (max-width: 600px) {
-  .floating-card input {
+  .floating-card.welcome .welcome-input {
+    display: flex;
+    flex-direction: column;
     margin: 0;
+
+    align-items: center;
+  }
+
+  .floating-card input {
     padding: 10px;
     font-size: 16px; /* Ensures no zoom on mobile when focusing input */
   }
