@@ -16,7 +16,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   const initializeAndShuffleCards = useCallback(async () => {
     try {
-      const data = await getCardEntries(2);
+      const data = await getCardEntries(20);
       const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
       setCards(shuffledCards);
     } catch (error) {
@@ -109,12 +109,8 @@ const Header = ({
   correctCount: number;
   incorrectCount: number;
 }) => {
-  const headerClassName = `counter flex flex-row gap-28 absolute z-500 `;
   return (
-    <header
-      className={`${headerClassName}`}
-      style={{ bottom: "1.4em", left: "50%", transform: "translateX(-50%)" }}
-    >
+    <header className={`flex justify-between items-center p-4`}>
       <div
         className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
         style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}

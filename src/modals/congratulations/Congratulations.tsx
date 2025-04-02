@@ -25,7 +25,7 @@ const Congratulations = ({
 
   return (
     <div className={`floating-card congratulations ${tailwindClasses}`}>
-      <h2>Congratulations!</h2>
+      <h2>{texts.CONGRATULATIONS}</h2>
       <p>
         {playerName}, {texts.CORRECT_COUNT}
         <strong className="text-green-500">{correctCount} correct </strong>
