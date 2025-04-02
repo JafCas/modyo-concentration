@@ -45,15 +45,7 @@ const Welcome = ({
   const labelText = isPlayingAgain ? "Are you still?" : "Enter your name: ";
 
   return (
-    <div
-      className={`floating-card welcome ${tailwindClasses}`}
-      style={{
-        opacity: isCardVisible ? 1 : 0,
-        pointerEvents: isCardVisible ? "all" : "none",
-        overflow: isCardVisible ? "hidden" : "auto",
-        transition: "all 0.2s ease-in-out",
-      }}
-    >
+    <div className={`floating-card welcome ${tailwindClasses}`}>
       <div className="welcome-header">
         <h1>{texts.WELCOME_MESSAGE}</h1>
         <p>{texts.INSTRUCTION_MESSAGE}</p>
