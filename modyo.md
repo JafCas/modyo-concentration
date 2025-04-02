@@ -10,18 +10,12 @@ Vite - React - TypeScript
 1. LOGIC (COMPLETED)
 
 # Styles
-# Mobile First
-## Welcome
-- Make it absolute and a carga 
-
-## Memory Game 
-- Board
-- Cards
-
-# Congratulations
-
-# PC
+## Mobile First
+### Welcome
+### Memory Game
+### Congratulations
+## PC
 
 3. Tailwind
 
-4. 
+4. ...

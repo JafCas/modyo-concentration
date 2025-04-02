@@ -81,33 +81,24 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
   }, [matchedCards, cards.length, onGameOver, correctCount, incorrectCount]);
 
   return (
-    <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "40%",
-          transform: "translateY(-50%)",
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-        }}
-      >
-        <Header correctCount={correctCount} incorrectCount={incorrectCount} />
-      </div>
+    <>
+      <Header correctCount={correctCount} incorrectCount={incorrectCount} />
 
-      <div className="card-container flex gap-5 justify-center flex-wrap">
-        {cards.map((card, index) => (
-          <MemoryCard
-            key={index}
-            card={card}
-            index={index}
-            handleCardClick={handleCardClick}
-            isSelected={flippedCards.includes(index)}
-            isMatched={matchedCards.includes(index)}
-          />
-        ))}
+      <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
+        <div className="card-container flex gap-5 justify-center flex-wrap">
+          {cards.map((card, index) => (
+            <MemoryCard
+              key={index}
+              card={card}
+              index={index}
+              handleCardClick={handleCardClick}
+              isSelected={flippedCards.includes(index)}
+              isMatched={matchedCards.includes(index)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -121,22 +112,24 @@ const Header = ({
   incorrectCount: number;
 }) => {
   return (
-    <header className={`flex justify-between items-center p-4 `}>
+    <header
+      className={`flex justify-between p-4 fixed top-1/2 transform -translate-y-1/2 left-4 right-4 z-50 lg:left-16 lg:right-16`}
+    >
       <div
-      className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
-      style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
+        className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
+        style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
       >
-      <span style={{ fontWeight: "bold" }} className="text-2xl">
-        {correctCount}
-      </span>
+        <span style={{ fontWeight: "bold" }} className="text-2xl">
+          {correctCount}
+        </span>
       </div>
       <div
-      className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
-      style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
+        className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
+        style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
       >
-      <span style={{ fontWeight: "bold" }} className="text-2xl">
-        {incorrectCount}
-      </span>
+        <span style={{ fontWeight: "bold" }} className="text-2xl">
+          {incorrectCount}
+        </span>
       </div>
     </header>
   );
