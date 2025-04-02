@@ -20,11 +20,10 @@ const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
 
   return (
     <div
-      className="welcome-container"
+      className="floating-card"
       style={{
         opacity: !isGameStarted ? 1 : 0,
         pointerEvents: !isGameStarted ? "all" : "none",
-        backdropFilter: !isGameStarted ? "blur(4px)" : "blur(0px)",
         overflow: !isGameStarted ? "hidden" : "auto",
         transition: "all 0.2s ease-in-out",
       }}

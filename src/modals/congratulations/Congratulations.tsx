@@ -20,7 +20,7 @@ const Congratulations = ({
   };
   return (
     <div
-      className="congratulations-modal"
+      className="floating-card"
       style={{ display: isGameOver ? "block" : "none" }}
     >
       <h2>Congratulations!</h2>
