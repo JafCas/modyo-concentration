@@ -17,7 +17,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   const initializeAndShuffleCards = useCallback(async () => {
     try {
-      const data = await getCardEntries(4);
+      const data = await getCardEntries(3);
       const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
       setCards(shuffledCards);
     } catch (error) {
@@ -117,6 +117,8 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
             flippedCards={flippedCards}
             matchedCards={matchedCards}
             handleCardClick={handleCardClick}
+            isSelected={flippedCards.includes(index)}
+            isMatched={matchedCards.includes(index)}
           />
         ))}
       </div>

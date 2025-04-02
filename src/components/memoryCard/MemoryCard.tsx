@@ -1,3 +1,4 @@
+import images from "../../assets/images";
 import "./memoryCard.css";
 
 const MemoryCard = ({
@@ -6,12 +7,16 @@ const MemoryCard = ({
   flippedCards,
   matchedCards,
   handleCardClick,
+  isSelected,
+  isMatched,
 }: {
   card: { fields: { image: { url: string; title: string } } };
   index: number;
   flippedCards: number[];
   matchedCards: number[];
   handleCardClick: (index: number) => void;
+  isSelected: boolean;
+  isMatched: boolean;
 }) => {
   return (
     <div
@@ -27,7 +32,17 @@ const MemoryCard = ({
       }}
       onClick={() => handleCardClick(index)}
     >
-      <img src={card.fields.image.url} alt={card.fields.image.title} />
+      {/* <img src={card.fields.image.url} alt={card.fields.image.title} /> */}
+      <img
+        // src={images.cardCover}
+        src={
+          flippedCards.includes(index) || matchedCards.includes(index)
+            ? card.fields.image.url
+            : images.cardCover
+        }
+        alt={card.fields.image.title}
+        // style={{ marginTop: "-1px" }}
+      />
     </div>
   );
 };
