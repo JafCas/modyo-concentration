@@ -1,45 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "./Welcome.css";
+import texts from "../../assets/texts";
 
 type WelcomeProps = {
   isGameStarted: boolean;
+  isGameOver: boolean;
+  isPlayingAgain: boolean;
   startGameWithName: (name: string) => void;
 };
 
 const Welcome = ({
-  isGameStarted: gameStarted,
+  isGameStarted,
+  isGameOver,
+  isPlayingAgain,
   startGameWithName,
 }: WelcomeProps) => {
-  const [playerName, setPlayerName] = React.useState("");
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayerName(event.target.value);
-  };
+  const [playerName, setPlayerName] = useState("");
+  const isCardVisible = !isGameStarted && !isGameOver;
 
-  const handleStartGame = () => {
-    if (playerName) {
-      startGameWithName(playerName);
+  const tailwindClasses = isCardVisible
+    ? "opacity-100 pointer-events-auto overflow-hidden transition-all duration-200 ease-in-out"
+    : "opacity-0 pointer-events-none overflow-auto transition-all duration-200 ease-in-out";
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const input = event.target.value.trim();
+    const isValid = /^[a-zA-Z\s]*$/.test(input); // Allow only letters and spaces
+    if (isValid) {
+      setPlayerName(input);
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (playerName) {
+      const sanitizedPlayerName = playerName.replace(/\s+/g, " ").trim(); // Remove extra spaces
+      startGameWithName(sanitizedPlayerName);
+    }
+  };
+
+  useEffect(() => {
+    document.body.style.pointerEvents = isGameStarted ? "auto" : "none";
+  }, [isGameStarted]);
+
+  const labelText = isPlayingAgain ? "Are you still?" : "Enter your name: ";
+
   return (
-    <div
-      className="welcome"
-      style={{ display: gameStarted ? "none" : "block" }}
-    >
-      <h1>Welcome to the Memory Game!</h1>
-      <p>Test your memory and have fun!</p>
-      <div>
-        <label htmlFor="playerName">Enter your name: </label>
-        <input
-          onChange={handleNameChange}
-          type="text"
-          id="playerName"
-          name="playerName"
-          placeholder="Your name"
-        />
+    <div className={`floating-card welcome ${tailwindClasses}`}>
+      <div className="welcome-header">
+        <h1>{texts.WELCOME_MESSAGE}</h1>
+        <p>{texts.INSTRUCTION_MESSAGE}</p>
       </div>
-      <button disabled={!playerName} onClick={handleStartGame}>
-        Start Game
-      </button>
+      <form className="welcome-input gap-1" onSubmit={handleSubmit}>
+        <div className="align-bottom">
+          <label
+            style={{ fontSize: "1.4rem", fontWeight: "bold" }}
+            htmlFor="playerName"
+          >
+            {labelText}
+          </label>
+          <input
+            onChange={handleNameChange}
+            type="text"
+            id="playerName"
+            name="playerName"
+            placeholder={texts.NAME_PLACEHOLDER}
+            required
+          />
+        </div>
+        <button type="submit">{texts.START_GAME}</button>
+      </form>
     </div>
   );
 };

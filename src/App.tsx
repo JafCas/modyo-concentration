@@ -12,9 +12,11 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
+  const [isPlayingAgain, setIsPlayingAgain] = useState(false);
 
   const handleGameOver = useCallback((correct: number, incorrect: number) => {
     setGameOver(true);
+    setGameStarted(false);
     setCorrectCount(correct);
     setIncorrectCount(incorrect);
   }, []);
@@ -27,9 +29,10 @@ function App() {
 
   const handlePlayAgain = () => {
     setGameOver(false);
-    setGameStarted(false);
     setCorrectCount(0);
     setIncorrectCount(0);
+    setIsPlayingAgain(true);
+    setGameStarted(false);
   };
 
   return (
@@ -38,10 +41,12 @@ function App() {
       <Welcome
         startGameWithName={handleSrtartGame}
         isGameStarted={gameStarted}
+        isGameOver={gameOver}
+        isPlayingAgain={isPlayingAgain}
       />
 
       {/* MemoryGame */}
-      <MemoryGame onGameOver={handleGameOver} gameStarted={gameStarted} />
+      <MemoryGame onGameOver={handleGameOver} isGameStarted={gameStarted} />
 
       {/* Congratulations */}
       <Congratulations
