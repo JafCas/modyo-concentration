@@ -14,27 +14,25 @@ const MemoryCard = ({
   isSelected: boolean;
   isMatched: boolean;
 }) => {
+  const tailwindClassForBG = isSelected
+    ? "bg-blue-300"
+    : isMatched
+    ? "bg-green-300"
+    : "bg-gray-200";
+
   return (
     <div
       key={index}
-      className="card"
+      className={`card ${tailwindClassForBG}`}
       style={{
-        borderColor: isMatched
-          ? "green"
-          : isSelected
-          ? "red"
-          : "black",
         transform: isSelected ? "scale(1.1)" : "scale(1)",
         transition: "transform 0.3s ease",
       }}
       onClick={() => handleCardClick(index)}
     >
-      {/* <img src={card.fields.image.url} alt={card.fields.image.title} /> */}
       <img
-        // src={images.cardCover}
         src={isSelected || isMatched ? card.fields.image.url : images.cardCover}
         alt={card.fields.image.title}
-        // style={{ marginTop: "-1px" }}
       />
     </div>
   );

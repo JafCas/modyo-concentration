@@ -1,4 +1,4 @@
-import cardCover from "./cardCover.png";
+import cardCover from "./cardCover.jpg";
 
 export const images = {
   cardCover,

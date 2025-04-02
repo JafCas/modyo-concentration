@@ -34,7 +34,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
     if (matchedCards.includes(cardIndex)) return;
 
     if (flippedCards.includes(cardIndex)) {
-      setTimeout(() => setFlippedCards([]), 500); // Clear flipped cards after a delay
+      setFlippedCards([]);
       return;
     }
 
