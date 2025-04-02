@@ -29,26 +29,25 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
     initializeAndShuffleCards();
   }, [initializeAndShuffleCards]);
 
-  const handleCardClick = (cardIndex: number) => {
-    // Handle card click logic here
-    if (matchedCards.includes(cardIndex)) return;
-
-    if (flippedCards.includes(cardIndex)) {
-      setFlippedCards([]);
-      return;
-    }
-
-    setFlippedCards((prev) => [...prev, cardIndex]);
-  };
+  const handleCardClick = useCallback(
+    (cardIndex: number) => {
+      if (
+        matchedCards.includes(cardIndex) ||
+        flippedCards.includes(cardIndex)
+      ) {
+        return;
+      }
+      setFlippedCards((prev) => [...prev, cardIndex]);
+    },
+    [matchedCards, flippedCards]
+  );
 
   const restartGame = useCallback(() => {
-    setTimeout(() => {
-      initializeAndShuffleCards();
-      setFlippedCards([]);
-      setMatchedCards([]);
-      setCorrectCount(0);
-      setIncorrectCount(0);
-    }, 200); // Add a delay to enhance UX
+    initializeAndShuffleCards();
+    setFlippedCards([]);
+    setMatchedCards([]);
+    setCorrectCount(0);
+    setIncorrectCount(0);
   }, [initializeAndShuffleCards]);
 
   useEffect(() => {
@@ -61,16 +60,17 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
     if (flippedCards.length === 2) {
       const [firstCardIndex, secondCardIndex] = flippedCards;
       const isMatch =
-        cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid;
+        cards[firstCardIndex]?.meta.uuid === cards[secondCardIndex]?.meta.uuid;
 
       setTimeout(() => {
-        setMatchedCards((prev) =>
-          isMatch ? [...prev, firstCardIndex, secondCardIndex] : prev
-        );
-        setCorrectCount((prev) => (isMatch ? prev + 1 : prev));
-        setIncorrectCount((prev) => (!isMatch ? prev + 1 : prev));
+        if (isMatch) {
+          setMatchedCards((prev) => [...prev, firstCardIndex, secondCardIndex]);
+          setCorrectCount((prev) => prev + 1);
+        } else {
+          setIncorrectCount((prev) => prev + 1);
+        }
         setFlippedCards([]);
-      }, 400); 
+      }, 400);
     }
   }, [flippedCards, cards]);
 
@@ -78,14 +78,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
     if (matchedCards.length === cards.length && cards.length > 0) {
       onGameOver(correctCount, incorrectCount);
     }
-  }, [
-    matchedCards,
-    cards,
-    onGameOver,
-    correctCount,
-    incorrectCount,
-    restartGame,
-  ]);
+  }, [matchedCards, cards.length, onGameOver, correctCount, incorrectCount]);
 
   return (
     <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
