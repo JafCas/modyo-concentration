@@ -1,0 +1,27 @@
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid;
+
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+    margin: 0px auto;
+  }
+
+  .card img {
+    width: 80px;
+    height: 80px;
+  }
+}

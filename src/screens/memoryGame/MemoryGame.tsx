@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card, getCardEntries } from "../../services/getCardEntries";
+import MemoryCard from "../../components/memoryCard/MemoryCard";
+// import "./memoryGame.css";
 
 type MemoryGameProps = {
   onGameOver: (correct: number, incorrect: number) => void;
@@ -108,38 +110,14 @@ const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
           }}
         >
           {cards.map((card, index) => (
-            <div
-              style={{
-                cursor: "pointer",
-                border: "2px solid",
-                borderColor: matchedCards.includes(index)
-                  ? "green"
-                  : flippedCards.includes(index)
-                  ? "red"
-                  : "black",
-                borderRadius: "10px",
-                overflow: "hidden",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                transition: "transform 0.2s",
-                transform: flippedCards.includes(index)
-                  ? "scale(1.1)"
-                  : "scale(1)",
-              }}
+            <MemoryCard
               key={index}
-              className="card"
-              onClick={() => handleCardClick(index)}
-            >
-              <img
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  objectFit: "cover",
-                }}
-                src={card.fields.image.url}
-                alt={card.fields.image.title}
-                className="card-image"
-              />
-            </div>
+              card={card}
+              index={index}
+              flippedCards={flippedCards}
+              matchedCards={matchedCards}
+              handleCardClick={handleCardClick}
+            />
           ))}
         </div>
       </div>
