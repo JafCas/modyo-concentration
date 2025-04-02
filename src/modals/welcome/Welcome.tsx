@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Welcome.css";
 
 type WelcomeProps = {
   isGameStarted: boolean;
   startGameWithName: (name: string) => void;
 };
 
-const Welcome = ({
-  isGameStarted: gameStarted,
-  startGameWithName,
-}: WelcomeProps) => {
-  const [playerName, setPlayerName] = React.useState("");
+const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
+  const [playerName, setPlayerName] = useState("");
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.target.value);
   };
@@ -22,8 +20,14 @@ const Welcome = ({
 
   return (
     <div
-      className="welcome"
-      style={{ display: gameStarted ? "none" : "block" }}
+      className="welcome-container"
+      style={{
+        opacity: !isGameStarted ? 1 : 0,
+        pointerEvents: !isGameStarted ? "all" : "none",
+        backdropFilter: !isGameStarted ? "blur(4px)" : "blur(0px)",
+        overflow: !isGameStarted ? "hidden" : "auto",
+        transition: "all 0.2s ease-in-out",
+      }}
     >
       <h1>Welcome to the Memory Game!</h1>
       <p>Test your memory and have fun!</p>
