@@ -82,7 +82,18 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   return (
     <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
-      <Header correctCount={correctCount} incorrectCount={incorrectCount} />
+      <div
+        style={{
+          position: "fixed",
+          bottom: "40%",
+          transform: "translateY(-50%)",
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+        }}
+      >
+        <Header correctCount={correctCount} incorrectCount={incorrectCount} />
+      </div>
 
       <div className="card-container flex gap-5 justify-center flex-wrap">
         {cards.map((card, index) => (
@@ -110,22 +121,22 @@ const Header = ({
   incorrectCount: number;
 }) => {
   return (
-    <header className={`flex justify-between items-center p-4`}>
+    <header className={`flex justify-between items-center p-4 `}>
       <div
-        className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
-        style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
+      className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
+      style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
       >
-        <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
-          {correctCount}
-        </span>
+      <span style={{ fontWeight: "bold" }} className="text-2xl">
+        {correctCount}
+      </span>
       </div>
       <div
-        className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
-        style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
+      className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
+      style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
       >
-        <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
-          {incorrectCount}
-        </span>
+      <span style={{ fontWeight: "bold" }} className="text-2xl">
+        {incorrectCount}
+      </span>
       </div>
     </header>
   );

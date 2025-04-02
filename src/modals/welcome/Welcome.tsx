@@ -58,11 +58,7 @@ const Welcome = ({
         <h1>{texts.WELCOME_MESSAGE}</h1>
         <p>{texts.INSTRUCTION_MESSAGE}</p>
       </div>
-      <form
-        className="welcome-input"
-        onSubmit={handleSubmit}
-        style={{ gap: "1rem" }}
-      >
+      <form className="welcome-input gap-1" onSubmit={handleSubmit}>
         <div className="align-bottom">
           <label
             style={{ fontSize: "1.4rem", fontWeight: "bold" }}
@@ -71,11 +67,6 @@ const Welcome = ({
             {labelText}
           </label>
           <input
-            style={{
-              fontSize: "1.4rem",
-              fontWeight: "bold",
-              borderRadius: "0.5rem",
-            }}
             onChange={handleNameChange}
             type="text"
             id="playerName"
