@@ -27,7 +27,7 @@ const Congratulations = ({
     <div className={`floating-card congratulations ${tailwindClasses}`}>
       <h2>Congratulations!</h2>
       <p>
-        `{playerName}, {texts.CORRECT_COUNT}
+        {playerName}, {texts.CORRECT_COUNT}
         <strong className="text-green-500">{correctCount} correct </strong>
         matches and{" "}
         <strong className="text-red-500">
