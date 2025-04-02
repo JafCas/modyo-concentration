@@ -56,7 +56,6 @@
   backdrop-filter: blur(8px);
 
   box-shadow: -1px -1px 4px #b6918c, 2px 2px 3px #e0aba6;
-  /* TODO: Disable pointer events when it is not active (can i do this with tailwind?)  */
 }
 
 .floating-card h1 {
