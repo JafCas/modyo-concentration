@@ -16,6 +16,11 @@ const Welcome = ({
 }: WelcomeProps) => {
   const [playerName, setPlayerName] = useState("");
   const isCardVisible = !isGameStarted && !isGameOver;
+
+  const tailwindClasses = isCardVisible
+    ? "opacity-100 pointer-events-auto overflow-hidden transition-all duration-200 ease-in-out"
+    : "opacity-0 pointer-events-none overflow-auto transition-all duration-200 ease-in-out";
+
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.target.value);
   };
@@ -38,7 +43,7 @@ const Welcome = ({
 
   return (
     <div
-      className="floating-card welcome"
+      className={`floating-card welcome ${tailwindClasses}`}
       style={{
         opacity: isCardVisible ? 1 : 0,
         pointerEvents: isCardVisible ? "all" : "none",
