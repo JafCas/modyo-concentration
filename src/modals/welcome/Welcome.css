@@ -13,7 +13,6 @@
     font-weight: bold;
     border-radius: 0.5rem;
     background-color: #9f777356;
-
   }
 }
 
@@ -29,8 +28,9 @@
 
   .floating-card input {
     padding: 10px;
-    font-size: 16px; /* Ensures no zoom on mobile when focusing input */
+    font-size: 2em;
     background-color: #9f777356;
+    border-radius: 24px;
   }
 
   .floating-card {

@@ -50,14 +50,9 @@ const Welcome = ({
         <h1>{texts.WELCOME_MESSAGE}</h1>
         <p>{texts.INSTRUCTION_MESSAGE}</p>
       </div>
-      <form className="welcome-input gap-1" onSubmit={handleSubmit}>
+      <form className="welcome-input gap-10" onSubmit={handleSubmit}>
         <div className="align-bottom">
-          <label
-            style={{ fontSize: "1.4rem", fontWeight: "bold" }}
-            htmlFor="playerName"
-          >
-            {labelText}
-          </label>
+          <label htmlFor="playerName">{labelText}</label>
           <input
             onChange={handleNameChange}
             type="text"
