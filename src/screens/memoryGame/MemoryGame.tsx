@@ -70,7 +70,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
         setCorrectCount((prev) => (isMatch ? prev + 1 : prev));
         setIncorrectCount((prev) => (!isMatch ? prev + 1 : prev));
         setFlippedCards([]);
-      }, 400); // Add a delay to enhance UX
+      }, 400); 
     }
   }, [flippedCards, cards]);
 
@@ -101,16 +101,16 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
       >
         <div className="counter flex gap-24">
           <div
-            className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white"
-            style={{ boxShadow: "0 0 4px rgba(0, 255, 0, 0.5)" }}
+            className="w-10 h-10 rounded-full bg-green-400 flex items-center justify-center text-white"
+            style={{ boxShadow: "0 0 4px rgb(2, 150, 2)" }}
           >
             <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
               {correctCount}
             </span>
           </div>
           <div
-            className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white"
-            style={{ boxShadow: "0 0 4px rgba(255, 0, 0, 0.5)" }}
+            className="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white"
+            style={{ boxShadow: "0 0 4px rgb(129, 10, 10)" }}
           >
             <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
               {incorrectCount}
