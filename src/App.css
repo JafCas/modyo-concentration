@@ -43,19 +43,19 @@
 
 .floating-card {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #9f777356;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
+  border-radius: 20px;
   z-index: 1000;
 
   display: flex;
 
   cursor: pointer;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: -1px -1px 4px #b6918c, 2px 2px 3px #e0aba6;
   /* TODO: Disable pointer events when it is not active (can i do this with tailwind?)  */
 }
 
@@ -70,14 +70,26 @@
 }
 
 .floating-card button {
-  background-color: #646cff;
+  background-color: #646cff46;
   color: white;
+  box-shadow: inset -4px -4px 4px rgba(71, 77, 198, 0.166),
+    inset 4px 4px 4px rgba(0, 0, 0, 0.2);
   border: none;
-  border-radius: 5px;
+  border-radius: 16px;
   padding: 1em;
   font-size: 1.5em;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.floating-card button:hover {
+  background-color: #646cff66;
+}
+
+.floating-card button:active {
+  background-color: #646cff99;
+  box-shadow: inset -4px -4px 4px rgba(71, 77, 198, 0.166),
+    inset 4px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 600px) {
