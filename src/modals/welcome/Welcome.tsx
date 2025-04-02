@@ -3,11 +3,19 @@ import "./Welcome.css";
 
 type WelcomeProps = {
   isGameStarted: boolean;
+  isGameOver: boolean;
+  isPlayingAgain: boolean;
   startGameWithName: (name: string) => void;
 };
 
-const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
+const Welcome = ({
+  isGameStarted,
+  isGameOver,
+  isPlayingAgain,
+  startGameWithName,
+}: WelcomeProps) => {
   const [playerName, setPlayerName] = useState("");
+  const isCardVisible = !isGameStarted && !isGameOver;
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.target.value);
   };
@@ -26,13 +34,15 @@ const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
     }
   }, [isGameStarted]);
 
+  const labelText = isPlayingAgain ? "Are you still?" : "Enter your name: ";
+
   return (
     <div
       className="floating-card welcome"
       style={{
-        opacity: !isGameStarted ? 1 : 0,
-        pointerEvents: !isGameStarted ? "all" : "none",
-        overflow: !isGameStarted ? "hidden" : "auto",
+        opacity: isCardVisible ? 1 : 0,
+        pointerEvents: isCardVisible ? "all" : "none",
+        overflow: isCardVisible ? "hidden" : "auto",
         transition: "all 0.2s ease-in-out",
       }}
     >
@@ -41,7 +51,7 @@ const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
         <p>Test your memory and have fun!</p>
       </div>
       <div className="welcome-input">
-        <label htmlFor="playerName">Enter your name: </label>
+        <label htmlFor="playerName">{labelText}</label>
         <input
           onChange={handleNameChange}
           type="text"
