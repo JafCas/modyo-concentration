@@ -34,18 +34,21 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
     if (matchedCards.includes(cardIndex)) return;
 
     if (flippedCards.includes(cardIndex)) {
-      setFlippedCards([]); // TODO: Replace for card cleaning method
+      setTimeout(() => setFlippedCards([]), 500); // Clear flipped cards after a delay
       return;
     }
+
     setFlippedCards((prev) => [...prev, cardIndex]);
   };
 
   const restartGame = useCallback(() => {
-    initializeAndShuffleCards();
-    setFlippedCards([]);
-    setMatchedCards([]);
-    setCorrectCount(0);
-    setIncorrectCount(0);
+    setTimeout(() => {
+      initializeAndShuffleCards();
+      setFlippedCards([]);
+      setMatchedCards([]);
+      setCorrectCount(0);
+      setIncorrectCount(0);
+    }, 200); // Add a delay to enhance UX
   }, [initializeAndShuffleCards]);
 
   useEffect(() => {
@@ -60,12 +63,14 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
       const isMatch =
         cards[firstCardIndex].meta.uuid === cards[secondCardIndex].meta.uuid;
 
-      setMatchedCards((prev) =>
-        isMatch ? [...prev, firstCardIndex, secondCardIndex] : prev
-      );
-      setCorrectCount((prev) => (isMatch ? prev + 1 : prev));
-      setIncorrectCount((prev) => (!isMatch ? prev + 1 : prev));
-      setFlippedCards([]);
+      setTimeout(() => {
+        setMatchedCards((prev) =>
+          isMatch ? [...prev, firstCardIndex, secondCardIndex] : prev
+        );
+        setCorrectCount((prev) => (isMatch ? prev + 1 : prev));
+        setIncorrectCount((prev) => (!isMatch ? prev + 1 : prev));
+        setFlippedCards([]);
+      }, 400); // Add a delay to enhance UX
     }
   }, [flippedCards, cards]);
 
@@ -114,8 +119,6 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
             key={index}
             card={card}
             index={index}
-            flippedCards={flippedCards}
-            matchedCards={matchedCards}
             handleCardClick={handleCardClick}
             isSelected={flippedCards.includes(index)}
             isMatched={matchedCards.includes(index)}
