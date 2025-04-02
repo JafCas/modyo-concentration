@@ -5,10 +5,10 @@ import MemoryCard from "../../components/memoryCard/MemoryCard";
 
 type MemoryGameProps = {
   onGameOver: (correct: number, incorrect: number) => void;
-  gameStarted: boolean;
+  isGameStarted: boolean;
 };
 
-const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
+const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
@@ -49,10 +49,10 @@ const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
   }, [initializeAndShuffleCards]);
 
   useEffect(() => {
-    if (gameStarted) {
+    if (isGameStarted) {
       restartGame();
     }
-  }, [gameStarted, restartGame]);
+  }, [isGameStarted, restartGame]);
 
   useEffect(() => {
     if (flippedCards.length === 2) {
@@ -83,43 +83,42 @@ const MemoryGame = ({ onGameOver, gameStarted }: MemoryGameProps) => {
   ]);
 
   return (
-    <div>
-      <div className="game-container">
-        <header
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "40px",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "20px",
-          }}
-        >
-          <h2>Memory Game</h2>
-          <div style={{ display: "flex", gap: "20px" }}>
-            <p>Correct Matches: {correctCount}</p>
-            <p>Incorrect Matches: {incorrectCount}</p>
-          </div>
-        </header>
-        <div
-          className="card-container"
-          style={{
-            display: "flex",
-            gap: "20px",
-            justifyContent: "center",
-          }}
-        >
-          {cards.map((card, index) => (
-            <MemoryCard
-              key={index}
-              card={card}
-              index={index}
-              flippedCards={flippedCards}
-              matchedCards={matchedCards}
-              handleCardClick={handleCardClick}
-            />
-          ))}
+    <div style={{ filter: isGameStarted ? "blur(0px)" : "blur(4px)" }}>
+      <header
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "40px",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <h2>Memory Game</h2>
+        <div style={{ display: "flex", gap: "20px" }}>
+          <p>Correct Matches: {correctCount}</p>
+          <p>Incorrect Matches: {incorrectCount}</p>
         </div>
+      </header>
+      <div
+        className="card-container"
+        style={{
+          display: "flex",
+          gap: "20px",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {cards.map((card, index) => (
+          <MemoryCard
+            key={index}
+            card={card}
+            index={index}
+            flippedCards={flippedCards}
+            matchedCards={matchedCards}
+            handleCardClick={handleCardClick}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import "./memoryCard.css";
 
 const MemoryCard = ({

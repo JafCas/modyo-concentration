@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Welcome.css";
 
 type WelcomeProps = {
@@ -17,6 +17,14 @@ const Welcome = ({ isGameStarted, startGameWithName }: WelcomeProps) => {
       startGameWithName(playerName);
     }
   };
+
+  useEffect(() => {
+    if (!isGameStarted) {
+      document.body.style.pointerEvents = "none";
+    } else {
+      document.body.style.pointerEvents = "auto";
+    }
+  }, [isGameStarted]);
 
   return (
     <div
