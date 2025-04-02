@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card, getCardEntries } from "../../services/getCardEntries";
 import MemoryCard from "../../components/memoryCard/MemoryCard";
-// import "./memoryGame.css";
 
 type MemoryGameProps = {
   onGameOver: (correct: number, incorrect: number) => void;
@@ -21,7 +20,7 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
       const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
       setCards(shuffledCards);
     } catch (error) {
-      console.error("Error fetching and shuffling card entries:", error);
+      alert(`Error fetching and shuffling card entries: ${error}`);
     }
   }, []);
 
