@@ -5,9 +5,14 @@ import MemoryCard from "../../components/memoryCard/MemoryCard";
 type MemoryGameProps = {
   onGameOver: (correct: number, incorrect: number) => void;
   isGameStarted: boolean;
+  numberOfCards: number;
 };
 
-const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
+const MemoryGame = ({
+  numberOfCards,
+  onGameOver,
+  isGameStarted,
+}: MemoryGameProps) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
@@ -16,13 +21,13 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
 
   const initializeAndShuffleCards = useCallback(async () => {
     try {
-      const data = await getCardEntries(20);
+      const data = await getCardEntries(numberOfCards);
       const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
       setCards(shuffledCards);
     } catch (error) {
       alert(`Error fetching and shuffling card entries: ${error}`);
     }
-  }, []);
+  }, [numberOfCards]);
 
   useEffect(() => {
     initializeAndShuffleCards();
@@ -79,6 +84,16 @@ const MemoryGame = ({ onGameOver, isGameStarted }: MemoryGameProps) => {
       onGameOver(correctCount, incorrectCount);
     }
   }, [matchedCards, cards.length, onGameOver, correctCount, incorrectCount]);
+
+  // useEffect(() => {
+  //   try {
+  //     const data = await getCardEntries(numberOfCards);
+  //     const shuffledCards = [...data, ...data].sort(() => Math.random() - 0.5);
+  //     setCards(shuffledCards);
+  //   } catch (error) {
+  //     alert(`Error fetching and shuffling card entries: ${error}`);
+  //   }
+  // }, [numberOfCards])
 
   return (
     <>

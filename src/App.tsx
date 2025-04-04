@@ -6,6 +6,14 @@ import Welcome from "./modals/welcome/Welcome";
 import Congratulations from "./modals/congratulations/Congratulations";
 import MemoryGame from "./screens/memoryGame/MemoryGame";
 
+export type Difficulty = "easy" | "medium" | "hard";
+
+const difficultyPairs = {
+  easy: 2,
+  medium: 4,
+  hard: 20,
+};
+
 function App() {
   const [playerName, setPlayerName] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
@@ -13,6 +21,8 @@ function App() {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [isPlayingAgain, setIsPlayingAgain] = useState(false);
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+  const [cardCount, setCardCount] = useState(difficultyPairs[difficulty]);
 
   const handleGameOver = useCallback((correct: number, incorrect: number) => {
     setGameOver(true);
@@ -35,18 +45,28 @@ function App() {
     setGameStarted(false);
   };
 
+  const handleSelectDifficulty = (difficulty: Difficulty) => {
+    setDifficulty(difficulty);
+    setCardCount(difficultyPairs[difficulty]);
+  };
+
   return (
     <>
       {/* Welcome */}
       <Welcome
         startGameWithName={handleSrtartGame}
+        setDifficulty={handleSelectDifficulty}
         isGameStarted={gameStarted}
         isGameOver={gameOver}
         isPlayingAgain={isPlayingAgain}
       />
 
       {/* MemoryGame */}
-      <MemoryGame onGameOver={handleGameOver} isGameStarted={gameStarted} />
+      <MemoryGame
+        onGameOver={handleGameOver}
+        isGameStarted={gameStarted}
+        numberOfCards={cardCount}
+      />
 
       {/* Congratulations */}
       <Congratulations

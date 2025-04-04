@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./Welcome.css";
 import texts from "../../assets/texts";
+import { Difficulty } from "../../App";
+
+// TODO: Move to Dificulty.ts
+const difficulties = [
+  { name: "easy", label: "👶🏽" },
+  { name: "medium", label: "⚔️" },
+  { name: "hard", label: "💀" },
+];
 
 type WelcomeProps = {
   isGameStarted: boolean;
   isGameOver: boolean;
   isPlayingAgain: boolean;
   startGameWithName: (name: string) => void;
+  setDifficulty: (difficulty: Difficulty) => void;
 };
 
 const Welcome = ({
@@ -14,6 +23,7 @@ const Welcome = ({
   isGameOver,
   isPlayingAgain,
   startGameWithName,
+  setDifficulty,
 }: WelcomeProps) => {
   const [playerName, setPlayerName] = useState("");
   const isCardVisible = !isGameStarted && !isGameOver;
@@ -38,11 +48,20 @@ const Welcome = ({
     }
   };
 
+  const handleSelectDifficulty = (difficulty: Difficulty) => {
+    // Set the difficulty level in your game logic
+    setDifficulty(difficulty);
+    // Optionally, you can also start the game here
+    // startGameWithName(playerName);
+  };
+
   useEffect(() => {
     document.body.style.pointerEvents = isGameStarted ? "auto" : "none";
   }, [isGameStarted]);
 
   const labelText = isPlayingAgain ? "Are you still?" : "Enter your name: ";
+
+  
 
   return (
     <div className={`floating-card welcome ${tailwindClasses}`}>
@@ -51,6 +70,20 @@ const Welcome = ({
         <p>{texts.INSTRUCTION_MESSAGE}</p>
       </div>
       <form className="welcome-input gap-10" onSubmit={handleSubmit}>
+        <div className="gap-2 flex-col flex">
+          {difficulties.map((difficulty) => (
+            <button
+              key={difficulty.name}
+              className={`difficulty-button ${difficulty.name}`}
+              onClick={() =>
+                handleSelectDifficulty(difficulty.name as Difficulty)
+              }
+              type="button"
+            >
+              {difficulty.label}
+            </button>
+          ))}
+        </div>
         <div className="align-bottom">
           <label htmlFor="playerName">{labelText}</label>
           <input
