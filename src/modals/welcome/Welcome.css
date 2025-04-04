@@ -1,3 +1,27 @@
+.floating-card input {
+  background-color: var(--color-primary-dark-transparent);
+  box-shadow: inset -4px -4px 8px #0d0c0a16, inset 4px 4px 4px #0d0c0a54,
+    0 0 0 1px #d3003f00;
+  outline: none; /* Removes the default blue border on focus */
+  transition: box-shadow 0.4s ease-in-out;
+}
+.floating-card input:focus {
+  box-shadow: inset -4px -4px 8px #0d0c0a16, inset 4px 4px 4px #0d0c0a54,
+    0 0 0 1px #d3003fff;
+  transition: all 0.4s ease-in-out;
+}
+
+.floating-card input::placeholder {
+  opacity: 0.2; /* Adjusts the opacity of the placeholder text */
+  color: var(--color-primary-lighter);
+  transition: all 0.4s ease-in-out;
+}
+.floating-card input::placeholder:focus {
+  opacity: 0.2; /* Adjusts the opacity of the placeholder text */
+  color: var(--cyber-pink);
+  transition: all 0.4s ease-in-out;
+}
+
 @media (max-width: 600px) {
   .floating-card.welcome .welcome-input {
     display: flex;
@@ -12,7 +36,6 @@
     font-size: 1.4rem;
     font-weight: bold;
     border-radius: 0.5rem;
-    background-color: #9f777356;
   }
 }
 
@@ -27,9 +50,9 @@
   }
 
   .floating-card input {
-    padding: 10px;
+    padding: 12px;
+    padding-left: 0.4em;
     font-size: 2em;
-    background-color: #9f777356;
     border-radius: 24px;
   }
 

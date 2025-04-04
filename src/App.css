@@ -16,7 +16,7 @@
 .floating-card {
   display: flex;
   position: fixed;
-  background-color: #9f777356;
+  background-color: var(--color-primary-dark-transparent);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -24,9 +24,9 @@
   z-index: 1000;
 
   backdrop-filter: blur(12px);
-  text-shadow: 0 0 5px #000000;
+  text-shadow: 0 0 4px #0d0c0a;
 
-  box-shadow: -1px -1px 4px #b6918c, 2px 2px 3px #e0aba6;
+  box-shadow: 1px 1px 8px #0d0c0a, -1px -1px 4px #ffffffad;
   align-items: center;
 }
 
@@ -46,10 +46,10 @@
 }
 
 .floating-card button {
-  background-color: #646cff46;
-  color: white;
-  box-shadow: inset -4px -4px 4px rgba(71, 77, 198, 0.166),
-    inset 4px 4px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-primary-transparent);
+  color: var(--color-primary-lighter);
+  box-shadow: inset -4px -4px 4px #c99dec54,
+    inset 4px 4px 4px #0d0c0a54;
   border: none;
   border-radius: 24px;
   padding: 0.4em 1.6em;
@@ -60,10 +60,12 @@
 }
 
 .floating-card button:hover {
-  background-color: #646cff66;
+  /* TODO: Update colors using css variables */
+  background-color: #646cff66; 
 }
 
 .floating-card button:active {
+  /* TODO: Update colors using css variables */
   background-color: #646cff46;
   box-shadow: inset -2px -2px 4px rgba(71, 77, 198, 0.166),
     inset 2px 2px 4px rgba(0, 0, 0, 0.2);

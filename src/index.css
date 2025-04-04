@@ -2,13 +2,21 @@
 @import "tailwindcss";
 
 :root {
+  --color-primary: #c99dec;
+  --color-primary-transparent: #c99dec54;
+  --cyber-pink: #d3003f;
+  --cyber-pink-transparent: #d3003f54;
+  --color-primary-dark: #0d0c0a;
+  --color-primary-dark-transparent: #0d0c0a54;
+  --color-primary-lighter: #fbfbfd;
+
   font-family: "Funnel Display", sans-serif;
   line-height: 1.5;
   font-weight: 500;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #fecfc9;
+  color: var(--color-primary-lighter);
+  background-color: var(--color-primary-lighter);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
