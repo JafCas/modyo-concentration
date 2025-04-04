@@ -48,27 +48,29 @@
 .floating-card button {
   background-color: var(--color-primary-transparent);
   color: var(--color-primary-lighter);
-  box-shadow: inset -4px -4px 4px #c99dec54,
-    inset 4px 4px 4px #0d0c0a54;
+  box-shadow: inset -4px -4px 4px #c99dec54, inset 4px 4px 4px #0d0c0a54;
   border: none;
   border-radius: 24px;
   padding: 0.4em 1.6em;
   font-weight: 600;
   font-size: 1.6em;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 .floating-card button:hover {
   /* TODO: Update colors using css variables */
-  background-color: #646cff66; 
+  background-color: var(--color-primary-transparent);
+  box-shadow: inset -4px -4px 6px #c99dec54, inset 5px 5px 5px #0d0c0a54;
+  transition: box-shadow 0.2s ease;
 }
 
 .floating-card button:active {
   /* TODO: Update colors using css variables */
-  background-color: #646cff46;
-  box-shadow: inset -2px -2px 4px rgba(71, 77, 198, 0.166),
-    inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-primary-transparent);
+  box-shadow: inset -4px -4px 8px #c99dec54, inset 6px 6px 6px #0d0c0a54;
+  transition: box-shadow 0.2s ease;
+  outline: none;
 }
 
 @media (max-width: 600px) {
