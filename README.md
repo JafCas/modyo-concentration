@@ -25,7 +25,7 @@ npm run dev
 
 4. **If you want to expose and use in a mobile phone use --host flag**:
 ```bash
-npm run dev --host
+npm run dev-serv
 ```
 5. Copy and paste the URL and that's it!
 
