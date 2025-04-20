@@ -17,7 +17,7 @@ export default {
   collectCoverageFrom: [
     "<rootDir>/src/**/*.{ts,tsx,js,jsx}",
     "!<rootDir>/src/**/*.d.ts",
-    "!<rootDir>/src/**/*.{spec,test}.{ts,tsx,js,jsx}",
+    "!<rootDir>/src/**/*.{spec|test}.{ts,tsx,js,jsx}",
     "!**/node_modules/**",
     "!**/dist/**",
     "!**/build/**",
@@ -29,5 +29,8 @@ export default {
     "<rootDir>/node_modules/",
     "<rootDir>/jest-setup.ts",
     "<rootDir>/vite-env.d.ts",
+  ],
+  testMatch: [
+    "**/?(*.)+(spec|test).[tj]s?(x)", // Matches both .spec and .test files
   ],
 };

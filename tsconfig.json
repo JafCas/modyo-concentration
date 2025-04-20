@@ -4,11 +4,11 @@
     "composite": true,
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
     "emitDeclarationOnly": true,
-    "strict": true,
+    "jsx": "react-jsx",
+    "module": "NodeNext",
     "skipLibCheck": true,
-    "module": "ESNext",
+    "strict": true,
     "typeRoots": [
       "./node_modules/@types",
       "./src/types"
